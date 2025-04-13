@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f8ff;
+    }
+
+    .weather-container {
+      text-align: center;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    #city {
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 80%;
+      max-width: 300px;
+      font-size: 16px;
+    }
+
+    #get-weather {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #get-weather:hover {
+      background-color: #45a049;
+    }
+
+    #weather-result {
+      margin-top: 20px;
+    }
+
+    .loading {
+      font-size: 18px;
+      font-weight: bold;
+      color: #4CAF50;
+    }
+
+    .icon {
+      width: 100px;
+      height: 100px;
+      margin-top: 10px;
+    }
+
+    #error-message {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="weather-container">
+    <h1>Weather App</h1>
+    <input type="text" id="city" placeholder="Enter a place" />
+    <button id="get-weather">Get Weather</button>
+    <div id="weather-result"></div>
+  </div>
+
+  <script>
+    document.getElementById("get-weather").addEventListener("click", () => {
+      const cityInput = document.getElementById("city");
+      const city = cityInput.value.trim(); // Remove leading/trailing spaces
+      const resultBox = document.getElementById("weather-result");
+
+      resultBox.innerHTML = ""; // Clear old results
+      if (!city) {
+        resultBox.innerHTML = `<p id="error-message">Please enter a city!</p>`;
+        return;
+      }
+
+      resultBox.innerHTML = `<p class="loading">Loading...</p>`;
+
+      const apiKey = "246d55d6d10fd5edfc694130fe17efc6"; // Replace with your OpenWeatherMap API key
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          if (data.cod === 200) {
+            resultBox.innerHTML = `
+              <p>Weather in ${data.name}, ${data.sys.country}</p>
+              <p>Temperature: ${data.main.temp}°C</p>
+              <p>Condition: ${data.weather[0].description}</p>
+              <img class="icon" src="https://openweathermap.org/img/wn/${data.weather[0].icon}.png" alt="weather icon"/>
+            `;
+          } else {
+            resultBox.innerHTML = `<p id="error-message">City not found!</p>`;
+          }
+        })
+        .catch(() => {
+          resultBox.innerHTML = `<p id="error-message">Something went wrong.</p>`;
+        });
+    });
+  </script>
+
+</body>
+</html>

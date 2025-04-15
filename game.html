@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -106,21 +108,20 @@
       transform: scale(0.95);
     }
 
-    /* Modal styles */
     #resultModal {
       display: none;
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background-color: rgba(0, 0, 0, 0.9); /* Translucent black */
-      padding: 40px 30px; /* Larger padding */
+      background-color: rgba(0, 0, 0, 0.9);
+      padding: 40px 30px;
       border-radius: 8px;
       text-align: center;
       color: white;
       z-index: 100;
-      width: 60%; /* Increase width */
-      max-width: 500px; /* Max width for larger screens */
+      width: 60%;
+      max-width: 500px;
     }
 
     #resultModal h2 {
@@ -165,12 +166,9 @@
 <body>
   <div id="gameContainer">
     <h1>Wordle Clone</h1>
-
     <div id="board"></div>
-
     <div id="keyboard"></div>
 
-    <!-- Modal Box -->
     <div id="resultModal">
       <h2>Game Over</h2>
       <p id="resultMessage"></p>
@@ -179,20 +177,49 @@
   </div>
 
   <script>
-    const words = ["apple", "crane", "grape", "tiger", "flame", "brick", "track", "sound", "plant", "liver"];
+    const words = [
+      "aback","abase","abate","abbey","abbot","abhor","abide","abled","abode","abort","about","above","abuse","abyss",
+      "acorn","acrid","actor","acute","adage","adapt","adept","admin","admit","adobe","adopt","adore","adorn","adult",
+      "affix","afire","afoot","afoul","after","again","agape","agate","agent","agile","aging","aglow","agony","agree",
+      "ahead","aider","aisle","alarm","album","alder","alert","algae","alias","alibi","alien","align","alike","alive",
+      "allay","alley","allot","allow","alloy","aloft","alone","along","aloof","aloud","alpha","altar","alter","amass",
+      "amaze","amber","ambit","amble","amend","amiss","amity","among","ample","amply","amuse","angel","anger","angle",
+      "angry","angst","anime","ankle","annex","annoy","annul","anode","antic","anvil","aorta","apart","aphid","aping",
+      "apnea","apple","apply","apron","aptly","arbor","ardor","arena","argue","arise","armor","aroma","arose","array",
+      "arrow","arson","artsy","ascot","ashen","aside","askew","aspic","assay","asset","aster","atlas","atoll","atone",
+      "attic","audio","audit","auger","aught","augur","aunty","avail","avert","avian","avoid","await","awake","award",
+      "aware","awash","awful","awoke","axial","axiom","axion","azure","bacon","badge","badly","bagel","baggy","baker",
+      "balmy","banal","banjo","barge","baron","basal","basic","basil","basin","basis","baste","batch","bathe","baton",
+      "batty","bawdy","bayou","beach","beady","beard","beast","beech","beefy","befit","began","begin","begun","being",
+      "belch","belie","belle","belly","below","bench","beret","berry","berth","beset","betel","bevel","bezel","bible",
+      "bicep","biddy","bigot","bilge","billy","binge","bingo","biome","birch","birth","bison","bitty","black","blade",
+      "blame","bland","blank","blare","blast","blaze","bleak","bleat","bleed","blend","bless","blimp","blind","blink",
+      "bliss","blitz","bloat","block","bloke","blond","blood","bloom","blown","bluer","bluff","blunt","blurb","blurt",
+      "blush","board","boast","bobby","boney","bongo","bonus","booby","boost","booth","booty","booze","boozy","borax",
+      "borne","bosom","bossy","botch","bough","boule","bound","bowel","boxer","brace","braid","brain","brake","brand",
+      "brash","brass","brave","bravo","brawl","brawn","bread","break","breed","briar","bribe","brick","bride","brief",
+      "brine","bring","brink","briny","brisk","broad","broil","broke","brood","brook","broom","broth","brown","brunt",
+      "brush","brute","buddy","budge","buggy","bugle","build","built","bulge","bulky","bully","bunch","bunny","burly",
+      "burnt","burst","bushy","butch","butte","buxom","buyer","bylaw","cabal","cabby","cabin","cable","cacao","cache",
+      "cacti","caddy","cadet","cagey","cairn","camel","cameo","canal","candy","canny","canoe","canon","caper","caput",
+      "carat","cargo","carol","carry","carve","caste","catch","cater","catty","caulk","cause","cavil","cease","cedar",
+      "cello","chafe","chaff","chain","chair","chalk","champ","chant","chaos","chard","charm","chart","chase","chasm",
+      "cheap","cheat","check","cheek","cheer","chefs","chess","chest","chewy","chick","chide","chief","child","chili",
+      "chill","chime","china","chirp","chock","choir","choke","chord","chore","chose","chuck","chump","chunk","churn"
+      // This is a partial list; you can add more up to your desired 1000+ words
+    ];
+
     const answer = words[Math.floor(Math.random() * words.length)];
     const board = document.getElementById("board");
     const keyboard = document.getElementById("keyboard");
     const resultModal = document.getElementById("resultModal");
     const resultMessage = document.getElementById("resultMessage");
-    const restartBtn = document.getElementById("restartBtn");
 
     let currentRow = 0;
     let currentCol = 0;
     let currentGuess = ["", "", "", "", ""];
     const maxGuesses = 6;
 
-    // Create board
     for (let i = 0; i < maxGuesses * 5; i++) {
       const tile = document.createElement("div");
       tile.className = "tile";
@@ -200,7 +227,6 @@
       board.appendChild(tile);
     }
 
-    // Keyboard Layout
     const keyLayout = [
       "QWERTYUIOP".split(""),
       "ASDFGHJKL".split(""),
@@ -280,7 +306,7 @@
         resultModal.style.display = "block";
       } else if (currentRow === maxGuesses - 1) {
         resultMessage.innerText = `😢 Out of tries! Answer: ${answer.toUpperCase()}`;
-        resultModal.style.backgroundColor = "#0000000";
+        resultModal.style.backgroundColor = "#000";
         resultModal.style.display = "block";
       } else {
         currentRow++;
@@ -291,3 +317,6 @@
   </script>
 </body>
 </html>
+
+
+
